@@ -1,0 +1,13 @@
+pandas
+urllib3
+requests
+selenium
+webdriver-manager
+lxml
+beautifulsoup4
+streamlit
+altair
+scikit-learn
+prophet
+plotly
+tensorflow
