@@ -15,7 +15,7 @@ def app():
     st.sidebar.header("Гиперпараметры")
     st.sidebar.markdown("Для предсказания исхода матча")
     max_depth = st.sidebar.slider("Максимальная глубина дерева:", 1, 20, 5)
-    feature_opts = ["Pace", "eFG_Pct", "TOV_Pct", "ORB_Pct", "FT_per_FGA", "ORtg"]
+    feature_opts = ["Pace", "eFG_Pct", "TOV_Pct", "ORB_Pct", "FT_per_FGA"]
     selected = st.sidebar.multiselect(
         "Выберите признаки:", feature_opts, default=feature_opts
     )
@@ -73,9 +73,7 @@ def app():
 
     st.subheader("Результаты модели")
     st.write(f"Accuracy: **{train_acc:.2%}**")
-    st.write(
-        f"Accuracy (5-fold CV): **{cv_scores.mean():.2%}** ± {cv_scores.std():.2%}"
-    )
+    st.write(f"Accuracy (5-fold CV): {cv_scores.mean():.2%} ± {cv_scores.std():.2%}")
     st.write(f"Test accuracy (2023–24): **{test_acc:.2%}**")
     if train_acc - test_acc > 0.1:
         st.warning(
@@ -133,13 +131,13 @@ def app():
         ].mean()
         diff = (home_avg.values - away_avg.values).reshape(1, -1)
         prob = clf.predict_proba(diff)[0][1]
-        st.write(f"Вероятность победы **{home}**: **{prob:.1%}**")
+        st.write(f"Вероятность победы {home}: **{prob:.1%}**")
 
     st.markdown("---")
     st.subheader("Объяснение признаков")
-    st.markdown("- **Pace_diff:** владений за игру (хозяева минус гости)")
-    st.markdown("- **eFG_Pct_diff:** разница в эффективном % попаданий")
-    st.markdown("- **TOV_Pct_diff:** разница в частоте потерь")
-    st.markdown("- **ORB_Pct_diff:** разница в проценте подборов в нападении")
-    st.markdown("- **FT_per_FGA_diff:** разница штрафных на бросок с игры")
-    st.markdown("- **ORtg_diff:** разница в атакующем рейтинге (очки на 100 владений)")
+    st.markdown("- Pace_diff: владений за игру (хозяева минус гости)")
+    st.markdown("- eFG_Pct_diff: разница в эффективном % попаданий")
+    st.markdown("- TOV_Pct_diff: разница в частоте потерь")
+    st.markdown("- ORB_Pct_diff: разница в проценте подборов в нападении")
+    st.markdown("- FT_per_FGA_diff: разница штрафных на бросок с игры")
+    st.markdown("- ORtg_diff: разница в атакующем рейтинге (очки на 100 владений)")
